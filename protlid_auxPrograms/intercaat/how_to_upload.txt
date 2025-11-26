@@ -1,0 +1,9 @@
+git config --global user.name "Andras Fiser"
+git config --global user.email "cmadrid@fiserlab.org"
+git init
+git remote add origin https://gitlab.com/fiserlab.org/intercaat.git
+git add .
+git commit -m "Initial commit"
+#git push -u origin main
+git push origin master
+

@@ -1,0 +1,22 @@
+simann with pos-restraint on receptor + dist restraint on ligand
+  &cntrl
+    ntwx = 100, 
+    ntwe = 100, ntwr = 50, ntpr = 1000, ntxo = 1, ioutfm = 0, 
+    imin = 0,				
+    ntx = 1, 			
+    temp0 = 300, 		
+    tempi = 300,
+    ig = -1,				
+    nstlim = 20000, 			
+    dt = 0.002,	
+    ntb = 0,		
+    nscm = 100,			
+    ntc = 2, ntf = 2,		
+    ntt = 2, vrand = 1000, 	
+    igb = 1, cut = 999.0,
+    ntr = 1,			
+    restraintmask = ':1-X_LASTREC_RESIDNO_X & !@H= ',restraint_wt = 100,
+    nmropt = 1,
+  /
+  &wt type='END', /
+ DISANG=./restraints.in

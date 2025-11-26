@@ -1,0 +1,9 @@
+minimization 02
+&cntrl
+  imin = 1, maxcyc = 1000, ncyc = 100,
+  ntx = 1, ntc = 1, ntf = 1,
+  ntb = 0, ntp = 0, ntxo = 1, ioutfm = 0,
+  ntwx = 100, ntwe = 0, ntpr = 100,
+  igb = 1, cut = 999.0,
+  ntr = 1, restraintmask = ':1-X_LASTREC_RESIDNO_X & !@H= | :X_LIG_RESIDNO_X@CG', restraint_wt=2.0,
+/
