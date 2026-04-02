@@ -101,7 +101,7 @@ $PROTLIDv2HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRe
 ### Example
 
 ```bash
-$PROTLIDv2HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRes.sh 1I8L.pdb A 1 106 B 3 120
+$PROTLIDv2HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRes.sh 1I8L.pdb A 1 106 C 3 120
 ```
 
 ---
