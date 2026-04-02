@@ -101,7 +101,7 @@ $PROTLIDv2HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRe
 ### Example
 
 ```bash
-$PROTLIDv2HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRes.sh 1I8L.pdb A 1 200 B 1 180
+$PROTLIDv2HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRes.sh 1I8L.pdb A 1 106 B 3 120
 ```
 
 ---
@@ -115,7 +115,7 @@ RUN_setupRequiredFiles_amber20.sh [pdb complex] [receptor chain] [receptor start
 ### Example
 
 ```bash
-RUN_setupRequiredFiles_amber20.sh 1I8L.pdb A 1 200
+RUN_setupRequiredFiles_amber20.sh 1I8L.pdb A 1 106
 ```
 
 ---
