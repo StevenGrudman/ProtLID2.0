@@ -4,7 +4,7 @@
 # 
 if [ $# -ne 1 ]; then echo "Usage: [full interface file]"; exit; fi
 inputpdbfile=$1
-hbondatomdeffile=$PROTLIDv1HOME/sharedFiles/def.Hbond.dat
+hbondatomdeffile=$PROTLIDv2HOME/sharedFiles/def.Hbond.dat
 
 # list atoms that are HD-, HA-capable
 for type in HA HD; do

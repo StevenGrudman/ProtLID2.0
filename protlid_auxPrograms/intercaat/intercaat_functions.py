@@ -96,7 +96,7 @@ def voroC(points):
 	# qvoronoi  = config.get('qvoronoi_path', 'executable_name')
 	# debug  = config.get('qvoronoi_path', 'debug_qvoronoi')
 	
-	qhullPath = os.environ.get('PROTLIDv1HOME')+'/protlid_auxPrograms/qhull/bin/qvoronoi'
+	qhullPath = os.environ.get('PROTLIDv2HOME')+'/protlid_auxPrograms/qhull/bin/qvoronoi'
 	vorFi = subprocess.check_output('cat ' + textFile + ' | ' + qhullPath + ' Fi', shell =True, text= True)
 	
 	subprocess.check_output('rm ' + textFile, shell =True, text= True)

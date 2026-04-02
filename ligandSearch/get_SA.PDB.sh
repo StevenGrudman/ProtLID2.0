@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-naccessLoc=$PROTLIDv1HOME/protlid_auxPrograms/naccess2.1.1
+naccessLoc=$PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1
 queryPDB=$1
 outdir=$2
 homeDirName=$3

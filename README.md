@@ -1,82 +1,213 @@
-NAME
-ProtLID2.0 (Protein-Ligand Interface Design 2.0)
+# ProtLID2.0  
+**Protein-Ligand Interface Design 2.0**
 
-SYNOPSIS
-ProtLID2.0 operates in 2 steps: rs-pharmacophore generation followed by a ligand search.
-ProtLID2.0 has been shown to be a reliable scoring function for site-directed protein–protein docking and as a tool for identifying a receptor's cognate ligand from a sub-proteome of decoys.
+## Overview
 
+ProtLID2.0 operates in **two main steps**:
 
-REQUIREMENTS:
-perl (Tested with version 5.16.3)
-modeller (Tested with version 10.3)
-amber (Tested with amber20)
-python3 (Tested with version 3.9.12)
-haddock3 (Tested with version 2024.12.0b7)
-	Must create a conda env for haddock3. Name this env "haddock3" 
+1. **Residue-specific pharmacophore generation**
+2. **Ligand search**
 
-INSTRUCTIONS
-Most commands in this readme can be copied and pasted to run ProtLID2.0. However anything between [] must be updated. For example, [pdb complex] must be replaed with a pdb complex like 1I8L.pdb.
+ProtLID2.0 has been shown to be a reliable scoring function for:
 
-### ADD FOLLOWING CODE TO .bashrc. Make sure to update PROTLIDv1HOME path and amber path if necessary 
+- **site-directed protein–protein docking**
+- **identifying a receptor’s cognate ligand** from a sub-proteome of decoys
+
+---
+
+## Requirements
+
+The following software is required:
+
+- **Perl** (tested with `v5.16.3`)
+- **MODELLER** (tested with `v10.3`)
+- **AMBER** (tested with `Amber20`)
+- **Python 3** (tested with `v3.9.12`)
+- **HADDOCK3** (tested with `2024.12.0b7`)
+
+> **Important:**  
+> You must create a Conda environment for HADDOCK3 named:
+
+```bash
+haddock3
+```
+
+---
+
+## Notes Before You Start
+
+Most commands in this README can be copied and pasted directly.
+
+However, **anything inside square brackets `[]` must be replaced** with your own values.
+
+### Example
+
+```bash
+[pdb complex]
+```
+
+should be replaced with something like:
+
+```bash
+1I8L.pdb
+```
+
+---
+
+## Environment Setup
+
+Add the following to your `.bashrc`.
+
+> **Important:**  
+> Update the `PROTLIDv2HOME` path and the AMBER path if needed.
+
+```bash
 #######################################
-export PROTLIDv1HOME=[path to protlidv2.0]
-export LD_LIBRARY_PATH=$PROTLIDv1HOME/protlid_auxPrograms/naccess2.1.1:$LD_LIBRARY_PATH
-PATH=$PATH:$PROTLIDv1HOME/scripts:$PROTLIDv1HOME/code_interfaceDesign:$PROTLIDv1HOME/code_partnerSearch:$PROTLIDv1HOME/code_interfaceDefinition:$PROTLIDv1HOME/bin:$PROTLIDv1HOME/protlid_auxPrograms:$PROTLIDv1HOME/protlid_auxPrograms/naccess2.1.1
+export PROTLIDv2HOME=[path to protlidv2.0]
+export LD_LIBRARY_PATH=$PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1:$LD_LIBRARY_PATH
+PATH=$PATH:$PROTLIDv2HOME/scripts:$PROTLIDv2HOME/code_interfaceDesign:$PROTLIDv2HOME/code_partnerSearch:$PROTLIDv2HOME/code_interfaceDefinition:$PROTLIDv2HOME/bin:$PROTLIDv2HOME/protlid_auxPrograms:$PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1
 export PATH=$PATH
 
-test -f  /usr/local/bio/amber20/amber.sh && source  /usr/local/bio/amber20/amber.sh
+test -f /usr/local/bio/amber20/amber.sh && source /usr/local/bio/amber20/amber.sh
 #######################################
+```
 
+Then reload your shell:
 
-### GENERATE RS-PHARMACOPHORE (!!!submits scripts to SGE!!!)
-#######################################
-### Create a new directory and copy a pdb complex into this directory. !All following commands should be executed from this directory!
+```bash
+source ~/.bashrc
+```
 
-### get interface of receptor and define mesh points
-$PROTLIDv1HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRes.sh [pdb complex] [receptor chain] [receptor start] [receptor end] [ligand chain] [lignad start] [ligand end]
+---
 
-### set up required files for amber 
+# Step 1: Generate the RS-Pharmacophore  
+> **This step submits jobs to SGE**
+
+## 1. Create a Working Directory
+
+Create a new directory and copy your PDB complex into it.
+
+> **Important:**  
+> All following commands in this section should be run **from this working directory**.
+
+---
+
+## 2. Define the Interface and Mesh Points
+
+```bash
+$PROTLIDv2HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRes.sh [pdb complex] [receptor chain] [receptor start] [receptor end] [ligand chain] [ligand start] [ligand end]
+```
+
+### Example
+
+```bash
+$PROTLIDv2HOME/code_interfaceDefinition/run_genIntAtomList_INTERCAATd4noIllHydRes.sh 1I8L.pdb A 1 200 B 1 180
+```
+
+---
+
+## 3. Set Up Required Files for AMBER
+
+```bash
 RUN_setupRequiredFiles_amber20.sh [pdb complex] [receptor chain] [receptor start] [receptor end]
+```
 
-### copy tleap script to current directory
-cp $PROTLIDv1HOME/code_interfaceDesign/template.genInitPDB_wtLeap_oddProbe.sh submit.genInitPDB_wtLeap.sh
+### Example
 
-### submit tleap script to cluster
-qsub -l -t 1-19 submit.genInitPDB_wtLeap.sh
+```bash
+RUN_setupRequiredFiles_amber20.sh 1I8L.pdb A 1 200
+```
 
-### once tleap files are generated, generate and run MD scripts
-cp $PROTLIDv1HOME/code_interfaceDesign/generateSubmitJobs_md.sh .
+---
+
+## 4. Copy the `tleap` Submission Script
+
+```bash
+cp $PROTLIDv2HOME/code_interfaceDesign/template.genInitPDB_wtLeap_oddProbe_SLURM.sh submit.genInitPDB_wtLeap.sh
+```
+
+---
+
+## 5. Submit `tleap` Jobs to the Cluster
+
+```bash
+qsub -t 1-19 submit.genInitPDB_wtLeap.sh
+```
+
+---
+
+## 6. Generate and Submit MD Jobs
+
+Once the `tleap` files are generated:
+
+```bash
+cp $PROTLIDv2HOME/code_interfaceDesign/generateSubmitJobs_md.sh .
 ./generateSubmitJobs_md.sh
 for i in `ls submit.1-7_pdb.???.?.sh`; do qsub $i; done
+```
 
-### delete files from MD simulations
-python3 $PROTLIDv1HOME/cleanUp.py &
+---
 
-### generate rs-pharmacophore
-python3 $PROTLIDv1HOME/get_rs-pharmacophore.py
+## 7. Clean Up MD Simulation Files
 
-######################################
+```bash
+python3 $PROTLIDv2HOME/cleanUp.py &
+```
 
+---
 
-### Ligand Search (!!!submits scripts to SLURM!!!)
-#######################################
-### Run Haddock3
-python3 $PROTLIDv1HOME/ligandSearch/setupHaddock3.py [receptor] [cognate ligand]  
-#######################################
+## 8. Generate the RS-Pharmacophore
 
+```bash
+python3 $PROTLIDv2HOME/get_rs-pharmacophore.py
+```
 
-OUTPUT
-Results can be found in [working directory]/ligandSearch/results
+---
 
-REFERENCE
-Email Steven for manuscript if not published
-TBD
-DOI: TBD
+# Step 2: Ligand Search  
+> **This step submits jobs to SLURM**
 
-AUTHORS
-Steven Grudman		steven.grudman@einsteinmed.edu	smgrudman@gmail.com
-Christopher McClain	christopher.mcclain@einsteinmed.edu
-Andras Fiser		andras.fiser@einsteinmed.edu
+## Run HADDOCK3 Setup
 
+```bash
+python3 $PROTLIDv2HOME/ligandSearch/setupHaddock3.py [receptor] [cognate ligand]
+```
 
+### Example
 
+```bash
+python3 $PROTLIDv2HOME/ligandSearch/setupHaddock3.py receptor.pdb ligand.pdb
+```
+
+---
+
+## Output
+
+Results will be written to:
+
+```bash
+[working directory]/ligandSearch/results
+```
+
+---
+
+## Reference
+
+If the manuscript is not yet published, please contact **Steven**.
+
+- **Manuscript:** TBD
+- **DOI:** TBD
+
+---
+
+## Authors
+
+- **Steven Grudman**  
+  steven.grudman@einsteinmed.edu  
+  smgrudman@gmail.com
+
+- **Christopher McClain**  
+  christopher.mcclain@einsteinmed.edu
+
+- **Andras Fiser**  
+  andras.fiser@einsteinmed.edu

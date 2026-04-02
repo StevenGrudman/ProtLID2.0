@@ -27,7 +27,7 @@
 use strict;
 use Benchmark;
 use POSIX;
-use lib $ENV{'PROTLIDv1HOME'}."/scripts/MYPERLPM";
+use lib $ENV{'PROTLIDv2HOME'}."/scripts/MYPERLPM";
 use myVectors;
 
 # main program

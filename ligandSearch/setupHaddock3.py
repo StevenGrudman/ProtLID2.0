@@ -6,7 +6,7 @@ import time
 
 homeDir = os.getcwd()
 homeDirName = homeDir.split('/')[-1]
-protlidPath = os.getenv('PROTLIDv1HOME')
+protlidPath = os.getenv('PROTLIDv2HOME')
 outputDir = f'{homeDir}/ligandSearch'
 
 receptor = sys.argv[1]

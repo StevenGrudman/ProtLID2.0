@@ -7,7 +7,7 @@ if [ $# -ne 1 ]; then echo "Usage: [full_interface_pdbfile]"; exit; fi
 inputpdb=$1
 
 # extract hydrophobic types per csu atom type assignment
-sharedfiledir=$PROTLIDv1HOME/sharedFiles
+sharedfiledir=$PROTLIDv2HOME/sharedFiles
 allowedtypefile=$sharedfiledir/csu.hydrophobic.legit.list
 atomtypelookup=$sharedfiledir/csu.atomtype.dat 
 

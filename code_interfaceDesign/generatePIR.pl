@@ -8,7 +8,7 @@
 # - input argument: probe 3-letter sequence, e.g. ALA-ARG-GLU
 
 use strict;
-use lib $ENV{'PROTLIDv1HOME'}."/scripts/MYPERLPM";
+use lib $ENV{'PROTLIDv2HOME'}."/scripts/MYPERLPM";
 use myProtein;
 
 # main program

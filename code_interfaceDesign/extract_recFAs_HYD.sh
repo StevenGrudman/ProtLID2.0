@@ -5,7 +5,7 @@
 if [ $# -ne 1 ] ;then echo "hydinterface_pdbfile"; exit; fi
 hydinterface_pdbfile=$1
 wd=$PWD
-masterjoblist=$PROTLIDv1HOME/sharedFiles/joblist.aafa.master0; 
+masterjoblist=$PROTLIDv2HOME/sharedFiles/joblist.aafa.master0; 
 hydjoblist=joblist.aafa.hyd0; grep "HYD" $masterjoblist > $hydjoblist
 outfile="recFAs.hyd.list"; rm -f $outfile
 

@@ -40,7 +40,7 @@ cutoff=18 #999
 nstlim=`echo $nSnapshot $n_intervalStep | awk '{print $1*$2}'`
 
 # prepare the file names
-shareddatadir=$PROTLIDv1HOME/sharedFiles
+shareddatadir=$PROTLIDv2HOME/sharedFiles
 requiredfilesdir=$wd/RequiredFiles
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

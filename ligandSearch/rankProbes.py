@@ -11,7 +11,7 @@ from Bio.PDB import PDBParser, Superimposer, PDBIO
 
 receptor = sys.argv[1]
 homeDir = os.getcwd()
-protlidPath = os.getenv('PROTLIDv1HOME')
+protlidPath = os.getenv('PROTLIDv2HOME')
 outputDir = f'{homeDir}/results'
 mpDistCutoff = 4.5
 rankOut = 'rankings'

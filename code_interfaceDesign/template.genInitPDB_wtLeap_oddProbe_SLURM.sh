@@ -1,13 +1,13 @@
-#!/bin/sh
+#!/bin/bash
 
-#$ -S /bin/bash
-#$ -q 36cores.q
-#$ -V 
-#$ -cwd
-#$ -j y
-#$ -r y
-#$ -N tleap
-#$ -t 1
+#SBATCH --job-name=tleap
+#SBATCH --partition=36cores
+#SBATCH --array=1-19
+#SBATCH --output=slurm-%A_%a.out
+#SBATCH --error=slurm-%A_%a.out
+#SBATCH --chdir=.
+#SBATCH --export=ALL
+#SBATCH --requeue
 
 #  ******* FOR PROBES WITH ODD NUMBERS OF RESIDUES *********
 #
@@ -15,7 +15,7 @@
 # by specifying the position of
 # 1. N (amino nitrogen of middle residue)
 # 2. C (carboxyl carbon of middle residue)
-# 3. FA1 (side chain atom near terminal) 
+# 3. FA1 (side chain atom near terminal)
 # 4. FA2 (atom next to FA1, proximal to main-chain)
 # - rotate N-C orientation for different runs
 #
@@ -24,15 +24,16 @@
 # - orient the probe's FA inwards and mainchain outwards
 # - rotate the N-C orientation for different runs
 
-### here you list your tasks like  (thisfile1.perl thisfile2.perl ...thisfile1456.perl)
+### here you list your tasks like (thisfile1.perl thisfile2.perl ... thisfile1456.perl)
 ### separated by blanks
 
-tasks=(ALA ARG ASN ASP CYS GLN GLU HIS ILE LEU LYS MET PHE PRO SER THR TRP TYR VAL )
+tasks=(ALA ARG ASN ASP CYS GLN GLU HIS ILE LEU LYS MET PHE PRO SER THR TRP TYR VAL)
 #tasks=(ALA-PHE-ALA)
 
-## this is default, do not touch
-jobindex=$((SGE_TASK_ID-1));
+## default
+jobindex=$((SLURM_ARRAY_TASK_ID - 1))
 input=${tasks[$jobindex]}
+
 
 wd=$PWD
 

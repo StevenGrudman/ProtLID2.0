@@ -23,7 +23,7 @@ endL=$7
 
 asaCutoff=1 # min exposed SA (in Angstrom^2) for an atom to be considered interface
 
-sharedfilesdir=$PROTLIDv1HOME/sharedFiles
+sharedfilesdir=$PROTLIDv2HOME/sharedFiles
 masterjoblist=$sharedfilesdir/joblist.aafa.master0 
 outdir=$wd/RequiredFiles; mkdir -p $outdir
 
@@ -51,10 +51,8 @@ cat lig.pdb >> com.pdb
 echo "TER"   >> com.pdb
 echo "END"  >> com.pdb
 
-# intercaat executable
-# python /home/steven/intercaat/intercaat.py -fp /home/steven/ProtLID/test/ -qc $chainR -ic $chainL -di no -pdb $compdbfile > $intercaatfile
 cd ..
-python $PROTLIDv1HOME/protlid_auxPrograms/intercaat/intercaat.py -fp ./tempdir/ -qc $chainR -ic $chainL -di no -pdb com.pdb > $intercaatfile
+python $PROTLIDv2HOME/protlid_auxPrograms/intercaat/intercaat.py -fp ./tempdir/ -qc $chainR -ic $chainL -di no -pdb com.pdb > $intercaatfile
 mv com.intercaat tempdir
 cd tempdir
 # remove first line
@@ -71,7 +69,7 @@ awk '{print $1,$2,$4}' temp.out | sort -k2 -n | uniq > intercaat_intatom.list # 
 echo "generating solvent accessible file ..." 
 asagtXfile=rec.sagt$asaCutoff.asa
 #naccess rec.pdb # output is rec.asa
-naccess rec.pdb -r /home/steven/protlidv1.0/protlid_auxPrograms/naccess2.1.1 -s /home/steven/protlidv1.0/protlid_auxPrograms/naccess2.1.1
+naccess rec.pdb -r $PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1 -s $PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1
 awk '{a=substr($0,55,8)+0;if(a>'$asaCutoff') print $0}' rec.asa > $asagtXfile
 # ========================================================
 # 3) extract interface atoms per intercaat-list from asagtXfile, 

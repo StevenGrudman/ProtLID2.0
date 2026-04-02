@@ -6,7 +6,7 @@ import operator
 import os
 
 homeDir = os.getcwd()
-protlidPath = os.getenv('PROTLIDv1HOME')
+protlidPath = os.getenv('PROTLIDv2HOME')
 aminoAcids = ['ALA', 'ARG', 'ASN', 'ASP', 'CYS', 'GLN', 'GLU', 'HIS', 'ILE', 'LEU', 'LYS', 'MET', 'PHE', 'PRO', 'SER', 'THR', 'TRP', 'TYR', 'VAL']
 
 ### Get distance between two points [x1,y1,z1] and [x2,y2,z2]

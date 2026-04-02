@@ -21,7 +21,7 @@ echo "> generating reformatted pdb and asa files ..."
 reformattedfile=rec.reformat.pdb
 awk '{if($3 !~/^H/) print $0}' $recpdbfile | sed -e 's/CYX/CYS/' -e 's/HI./HIS/'  > $reformattedfile
 #naccess $reformattedfile # output is rec.asa
-naccess $reformattedfile -r $PROTLIDv1HOME/protlid_auxPrograms/naccess2.1.1 -s $PROTLIDv1HOME/protlid_auxPrograms/naccess2.1.1  #Need to provide explicit paths of the vdw.radii and standard.data files for naccess to work
+naccess $reformattedfile -r $PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1 -s $PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1  #Need to provide explicit paths of the vdw.radii and standard.data files for naccess to work
 
 cp $reformattedfile $outdir
 cp rec.asa $outdir
