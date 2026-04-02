@@ -18,6 +18,7 @@ nativeligand = sys.argv[2]
 qc = receptor.split('.')[1]
 ic = nativeligand.split('.')[1]
 
+shutil.copy(f'{homeDir}/{pdb}.pdb', f'{protlidPath}/pdbs')
 os.makedirs(f'{homeDir}/ligandSearch',exist_ok=True)
 os.makedirs(outputDir, exist_ok=True)
 os.makedirs(f'{outputDir}/err', exist_ok=True)

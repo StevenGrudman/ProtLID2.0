@@ -1,9 +1,9 @@
-# ProtLID2.0  
+# ProtLID2.0
 **Protein-Ligand Interface Design 2.0**
 
 ## Overview
 
-ProtLID2.0 operates in **two main steps**:
+ProtLID2.0 operates in **two main stages**:
 
 1. **Residue-specific pharmacophore generation**
 2. **Ligand search**
@@ -20,46 +20,20 @@ ProtLID2.0 has been shown to be a reliable scoring function for:
 The following software is required:
 
 - **Perl** (tested with `v5.16.3`)
-- **MODELLER** (tested with `v10.3`)
+- **MODELLER** (tested with `v9.15`)
 - **AMBER** (tested with `Amber20`)
 - **Python 3** (tested with `v3.9.12`)
 - **HADDOCK3** (tested with `2024.12.0b7`)
-
-> **Important:**  
-> You must create a Conda environment for HADDOCK3 named:
-
-```bash
-haddock3
-```
-
----
-
-## Notes Before You Start
-
-Most commands in this README can be copied and pasted directly.
-
-However, **anything inside square brackets `[]` must be replaced** with your own values.
-
-### Example
-
-```bash
-[pdb complex]
-```
-
-should be replaced with something like:
-
-```bash
-1I8L.pdb
-```
+- **NumPy** (tested with `v2.2.6`)
 
 ---
 
 ## Environment Setup
 
-Add the following to your `.bashrc`.
+Add the following lines to your `.bashrc`.
 
 > **Important:**  
-> Update the `PROTLIDv2HOME` path and the AMBER path if needed.
+> Update the `PROTLIDv2HOME` path and the AMBER path as needed for your system.
 
 ```bash
 #######################################
@@ -80,15 +54,74 @@ source ~/.bashrc
 
 ---
 
-# Step 1: Generate the RS-Pharmacophore  
-> **This step submits jobs to SGE**
+## Additional Setup Notes
+
+### 1. Replace Placeholder Values
+
+Most commands in this README can be copied and pasted directly.
+
+However, **anything inside square brackets `[]` must be replaced** with your own values.
+
+### Example
+
+```bash
+[pdb complex]
+```
+
+should be replaced with something like:
+
+```bash
+1I8L.pdb
+```
+
+---
+
+### 2. Create a MODELLER Symlink
+
+Please create a symbolic link for MODELLER.
+
+For example:
+
+```bash
+ln -s /usr/bin/modeller /usr/bin/mod9.15
+```
+
+> Adjust the paths above depending on where MODELLER is installed on your system and which version you have.
+
+---
+
+### 3. Update Cluster-Specific Paths
+
+Before running ProtLID2.0, you need to manually update the AMBER paths in the following files:
+
+- `$PROTLIDv2HOME/code_interfaceDesign/template.1-7_pdb_SLURM.sh`
+  - Line 26
+- `$PROTLIDv2HOME/code_interfaceDesign/RUN_setupRequiredFiles_amber20.sh`
+  - Line 8
+
+You also need to update the **SLURM partition name** in:
+
+- `$PROTLIDv2HOME/code_interfaceDesign/template.1-7_pdb_SLURM.sh`
+- `$PROTLIDv2HOME/code_interfaceDesign/template.genInitPDB_wtLeap_oddProbe_SLURM.sh`
+
+---
+
+# Step 1: Generate the RS-Pharmacophore
 
 ## 1. Create a Working Directory
 
-Create a new directory and copy your PDB complex into it.
+Create a new working directory and copy your PDB complex into it.
 
 > **Important:**  
-> All following commands in this section should be run **from this working directory**.
+> All commands in this section should be run **from this working directory**.
+
+### Example
+
+```bash
+mkdir test_1I8L
+cd test_1I8L
+wget https://files.rcsb.org/download/1I8L.pdb
+```
 
 ---
 
@@ -131,19 +164,19 @@ cp $PROTLIDv2HOME/code_interfaceDesign/template.genInitPDB_wtLeap_oddProbe_SLURM
 ## 5. Submit `tleap` Jobs to the Cluster
 
 ```bash
-qsub -t 1-19 submit.genInitPDB_wtLeap.sh
+sbatch submit.genInitPDB_wtLeap.sh
 ```
 
 ---
 
 ## 6. Generate and Submit MD Jobs
 
-Once the `tleap` files are generated:
+Once the `tleap` files have been generated:
 
 ```bash
 cp $PROTLIDv2HOME/code_interfaceDesign/generateSubmitJobs_md.sh .
 ./generateSubmitJobs_md.sh
-for i in `ls submit.1-7_pdb.???.?.sh`; do qsub $i; done
+for i in submit.1-7_pdb.???.?.sh; do sbatch "$i"; done
 ```
 
 ---
@@ -164,10 +197,22 @@ python3 $PROTLIDv2HOME/get_rs-pharmacophore.py
 
 ---
 
-# Step 2: Ligand Search  
-> **This step submits jobs to SLURM**
+# Step 2: Ligand Search
 
-## Run HADDOCK3 Setup
+## HADDOCK3 Setup
+
+> **Important:**  
+> You **must** create a Conda environment named `haddock3` for HADDOCK3.
+
+Download HADDOCK3 here:  
+https://github.com/haddocking/haddock3/releases/tag/2024.12.0b7
+
+Please follow their installation instructions.
+
+> **Important:**  
+> The `[receptor]` and `[cognate ligand]` names must each be **fewer than 6 characters**.
+
+### Run HADDOCK3 Setup
 
 ```bash
 python3 $PROTLIDv2HOME/ligandSearch/setupHaddock3.py [receptor] [cognate ligand]
@@ -176,7 +221,7 @@ python3 $PROTLIDv2HOME/ligandSearch/setupHaddock3.py [receptor] [cognate ligand]
 ### Example
 
 ```bash
-python3 $PROTLIDv2HOME/ligandSearch/setupHaddock3.py receptor.pdb ligand.pdb
+python3 $PROTLIDv2HOME/ligandSearch/setupHaddock3.py 1I8L.A 1I8L.C
 ```
 
 ---
@@ -193,7 +238,7 @@ Results will be written to:
 
 ## Reference
 
-If the manuscript is not yet published, please contact **Steven**.
+For questions about the method or manuscript status, please contact **Andras Fiser** or **Steven Grudman**.
 
 - **Manuscript:** TBD
 - **DOI:** TBD

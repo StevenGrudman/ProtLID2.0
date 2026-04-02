@@ -3,12 +3,12 @@
 # generate submission scripts to perform md on cluster
 
 templatedir=$PROTLIDv2HOME/code_interfaceDesign
-templatefile=$templatedir/template.1-7_pdb.sh
+templatefile=$templatedir/template.1-7_pdb_SLURM.sh
 runname=md
 
 scriptfilebase=`basename $templatefile .sh | sed 's/template/submit/'`
 
-for probe in ALA ARG ASN ASP CYS GLN GLU GLY HIS ILE LEU LYS MET PHE PRO SER THR TRP TYR VAL; do
+for probe in ALA ARG ASN ASP CYS GLN GLU HIS ILE LEU LYS MET PHE PRO SER THR TRP TYR VAL; do
     for runid in `ls -d RST_INIT/$probe/runid_* | sed 's/^.*_//'`; do
 	ls RST_INIT/$probe/runid_$runid/*rst | sed 's/^.*\///' > newjoblist
 	
