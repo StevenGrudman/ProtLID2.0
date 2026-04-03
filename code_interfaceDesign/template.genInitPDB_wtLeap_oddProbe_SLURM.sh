@@ -4,7 +4,7 @@
 #SBATCH --partition=36cores
 #SBATCH --array=1-19
 #SBATCH --output=slurm-%A_%a.out
-#SBATCH --error=slurm-%A_%a.out
+#SBATCH --error=slurm-%A_%a.err
 #SBATCH --chdir=.
 #SBATCH --export=ALL
 #SBATCH --requeue

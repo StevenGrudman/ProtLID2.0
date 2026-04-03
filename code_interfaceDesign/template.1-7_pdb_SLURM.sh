@@ -4,7 +4,7 @@
 #SBATCH --partition=12cores,36cores
 #SBATCH --array=1-21
 #SBATCH --output=LOGFILES/slurm-%A_%a.out
-#SBATCH --error=LOGFILES/slurm-%A_%a.out
+#SBATCH --error=LOGFILES/slurm-%A_%a.err
 #SBATCH --chdir=.
 #SBATCH --export=ALL
 
