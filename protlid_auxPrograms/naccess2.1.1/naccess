@@ -1,5 +1,5 @@
 #!/usr/bin/tcsh -f 
-set EXE_PATH = $PROTLIDv1HOME/protlid_auxPrograms/naccess2.1.1
+set EXE_PATH = $PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1
 #naccess_start
 #
 # The preceding line should be editted to point to
