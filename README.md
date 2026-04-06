@@ -176,7 +176,7 @@ Once the `tleap` files have been generated:
 ```bash
 cp $PROTLIDv2HOME/code_interfaceDesign/generateSubmitJobs_md.sh .
 ./generateSubmitJobs_md.sh
-for i in submit.1-7_pdb.???.?.sh; do sbatch "$i"; done
+for i in submit.1-7_pdb_SLURM.???.?.sh; do sbatch "$i"; done
 ```
 
 ---
