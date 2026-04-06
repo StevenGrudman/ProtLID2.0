@@ -210,7 +210,7 @@ https://github.com/haddocking/haddock3/releases/tag/2024.12.0b7
 Please follow their installation instructions.
 
 > **Important:**  
-> The `[receptor]` and `[cognate ligand]` names must each be **fewer than 6 characters**.
+> The `[receptor]` and `[cognate ligand]` names must each be **equal to or fewer than 6 characters**.
 
 ### Run HADDOCK3 Setup
 
