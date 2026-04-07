@@ -16,7 +16,7 @@ ntask=`cat $jobfile | wc -l`;
 sed -n '/^tasks/,$ p' $scriptfile | sed '/^tasks/d' >> script.tmp
 
 # change the number of jobs
-sed -i 's/^#$ -t .*$/#$ -t 1-'$ntask'/' script.tmp
+sed -i 's/^#SBATCH --array=.*$/#SBATCH --array=1-'$ntask'/' script.tmp
 
 cat script.tmp
 
