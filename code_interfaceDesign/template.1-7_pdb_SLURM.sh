@@ -22,8 +22,8 @@ input=${tasks[$jobindex]}
 ## this is default, do not touch
 wd=$PWD
 
-# amber path on the nodes
-sander=/usr/local/bio/amber20/bin/sander
+## Load AMBER
+module load amber/20
 
 # MD parameters
 ### ROS: changed from 200 to 150
@@ -136,11 +136,11 @@ if [ -f $outrst5dir/$base.05mi.rst ]; then
 else
     now=$(date +"%T")
     echo "staring minimization $now"
-    $sander -O -i 01mi.in -o $base.01mi.out -p $comprmfile -c $startrstfile -ref $startrstfile  -x 01mi.trj -inf 01mi.info -r 01mi.rst
-    $sander -O -i 02mi.in -o $base.02mi.out -p $comprmfile  -c 01mi.rst -ref 01mi.rst -x 02mi.trj -inf 02mi.info -r 02mi.rst
-    $sander -O -i 03mi.in -o $base.03mi.out -p $comprmfile  -c 02mi.rst -ref 02mi.rst -x 03mi.trj -inf 03mi.info -r 03mi.rst
-    $sander -O -i 04mi.in -o $base.04mi.out -p $comprmfile  -c 03mi.rst -ref 03mi.rst -x 04mi.trj -inf 04mi.info -r 04mi.rst
-    $sander -O -i 05mi.in -o $base.05mi.out -p $comprmfile  -c 04mi.rst -ref 04mi.rst -x 05mi.trj -inf $base.05mi.info -r $base.05mi.rst
+    sander -O -i 01mi.in -o $base.01mi.out -p $comprmfile -c $startrstfile -ref $startrstfile  -x 01mi.trj -inf 01mi.info -r 01mi.rst
+    sander -O -i 02mi.in -o $base.02mi.out -p $comprmfile  -c 01mi.rst -ref 01mi.rst -x 02mi.trj -inf 02mi.info -r 02mi.rst
+    sander -O -i 03mi.in -o $base.03mi.out -p $comprmfile  -c 02mi.rst -ref 02mi.rst -x 03mi.trj -inf 03mi.info -r 03mi.rst
+    sander -O -i 04mi.in -o $base.04mi.out -p $comprmfile  -c 03mi.rst -ref 03mi.rst -x 04mi.trj -inf 04mi.info -r 04mi.rst
+    sander -O -i 05mi.in -o $base.05mi.out -p $comprmfile  -c 04mi.rst -ref 04mi.rst -x 05mi.trj -inf $base.05mi.info -r $base.05mi.rst
     
 # if minimization fails, cp back the logfiles for debugging
     bMinimizeFail=0;
@@ -189,7 +189,7 @@ trjfilesize_target=`echo $trjfilesize_target0 $trjfilesize_target1 | awk '{if($1
 now=$(date +"%T")
 echo "starting md run $now"
 
-$sander -O -i $mdinputfile -o $base.06md.out -p $comprmfile -c $base.05mi.rst -ref $base.05mi.rst -x $trjfile -r $base.06md.rst
+sander -O -i $mdinputfile -o $base.06md.out -p $comprmfile -c $base.05mi.rst -ref $base.05mi.rst -x $trjfile -r $base.06md.rst
 trjfilesize_actual_local=`ls -lt $trjfile | awk '{print $5}'`
 if [ ! -f $trjfile ] || [ $trjfilesize_actual_local -lt $trjfilesize_target ]; then
     echo "No/incomplete 06md.trj : $trjfilesize_actual_local";
@@ -226,7 +226,7 @@ EOF
 # minimization run
     basei="$base.07mi.$i"
 
-    $sander -O -i 07mi.in -o $basei.out -p $comprmfile  -c $startrstfile_i -ref $startrstfile_i -x $basei.trj -r $basei.rst
+    sander -O -i 07mi.in -o $basei.out -p $comprmfile  -c $startrstfile_i -ref $startrstfile_i -x $basei.trj -r $basei.rst
     if [ ! -f $basei.rst ]; then 
 	echo "cannot generate $basei.rst"
 	cp $basei.out $outinfodir; 

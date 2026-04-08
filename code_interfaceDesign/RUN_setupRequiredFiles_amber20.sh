@@ -5,7 +5,7 @@
 # - complex's RCSB PDB file (with SSBOND specified if any), 
 # - receptor and ligand regions to consider (residue number ranges) 
 
-export AMBERHOME=/usr/local/bio/amber20
+module load amber/20
 
 wd=$PWD
 outdir="RequiredFiles"; mkdir -p $outdir

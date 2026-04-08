@@ -41,8 +41,6 @@ export PROTLIDv2HOME=[path to protlidv2.0]
 export LD_LIBRARY_PATH=$PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1:$LD_LIBRARY_PATH
 PATH=$PATH:$PROTLIDv2HOME/scripts:$PROTLIDv2HOME/code_interfaceDesign:$PROTLIDv2HOME/code_partnerSearch:$PROTLIDv2HOME/code_interfaceDefinition:$PROTLIDv2HOME/bin:$PROTLIDv2HOME/protlid_auxPrograms:$PROTLIDv2HOME/protlid_auxPrograms/naccess2.1.1
 export PATH=$PATH
-
-test -f /usr/local/bio/amber20/amber.sh && source /usr/local/bio/amber20/amber.sh
 #######################################
 ```
 
@@ -90,19 +88,21 @@ ln -s /usr/bin/modeller /usr/bin/mod9.15
 
 ---
 
-### 3. Update Cluster-Specific Paths
-
-Before running ProtLID2.0, you need to manually update the AMBER paths in the following files:
-
-- `$PROTLIDv2HOME/code_interfaceDesign/template.1-7_pdb_SLURM.sh`
-  - Line 26
-- `$PROTLIDv2HOME/code_interfaceDesign/RUN_setupRequiredFiles_amber20.sh`
-  - Line 8
-
-You also need to update the **SLURM partition name** in:
+### 3. Update SLURM partition name
 
 - `$PROTLIDv2HOME/code_interfaceDesign/template.1-7_pdb_SLURM.sh`
 - `$PROTLIDv2HOME/code_interfaceDesign/template.genInitPDB_wtLeap_oddProbe_SLURM.sh`
+
+---
+
+### 4. Update AMBER module
+
+Make sure the correct **AMBER module** is loaded in the following files:
+
+- `$PROTLIDv2HOME/code_interfaceDesign/RUN_setupRequiredFiles_amber20.sh`
+  - Line 8
+- `$PROTLIDv2HOME/code_interfaceDesign/template.1-7_pdb_SLURM.sh`
+  - Line 26
 
 ---
 
