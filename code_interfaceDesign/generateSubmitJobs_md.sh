@@ -16,7 +16,7 @@ for probe in ALA ARG ASN ASP CYS GLN GLU HIS ILE LEU LYS MET PHE PRO SER THR TRP
 	newscriptfilebase=$scriptfilebase.$probe.$runid
 	$PROTLIDv2HOME/scripts/writeSubmitscript.sh $templatefile newjoblist > $newscriptfilebase.sh;
 	
-	sed -i 's/#$ -N .*$/#$ -N '$runname$probe$runid'/' $newscriptfilebase.sh;
+	sed -i 's/^#SBATCH --job-name=.*/#SBATCH --job-name='$runname$probe$runid'/' "$newscriptfilebase.sh"
 	
 	echo "written to $newscriptfilebase.sh"
 	
