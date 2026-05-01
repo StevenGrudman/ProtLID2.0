@@ -217,7 +217,7 @@ See the HADDOCK3 installation guide:
 [HADDOCK3 Installation](HADDOCK3_README_FULL.md)
 
 > **Important:**  
-> You **must** create a Conda environment named `haddock3` for HADDOCK3.
+> Your Conda environment **must** be named `haddock3` for the ligand search to work.
 
 
 > **Important:**  

@@ -1,13 +1,13 @@
-# 🧬 HADDOCK3 Installation Guide (CentOS 7)
+# HADDOCK3 Installation Guide (CentOS 7)
 
-## 📌 Overview
+## Overview
 
-This guide describes a **reliable and reproducible method** to install **HADDOCK3 (v2026.3.0)** on **CentOS 7** and similar HPC environments.
+This guide describes a **reliable and reproducible method** to install **HADDOCK3 (v2026.3.0)** 
 
 Two critical issues must be addressed:
 
-- ⚠️ **Environment contamination (`PYTHONPATH`)**
-- ⚠️ **Avoiding source compilation of dependencies**
+- **Environment contamination (`PYTHONPATH`)**
+- **Avoiding source compilation of dependencies**
 
 This procedure has been tested and works on:
 
@@ -17,7 +17,7 @@ This procedure has been tested and works on:
 
 ---
 
-## ⚠️ Requirements & Common Pitfalls
+## Requirements & Common Pitfalls
 
 ### 1. Environment Contamination (`PYTHONPATH`)
 
@@ -42,45 +42,19 @@ If you see paths like:
 
 then your environment is contaminated.
 
-#### 🧹 Clean it:
+### Clean it:
 
 ```bash
 unset PYTHONPATH
 ```
 
-> 💡 **Important:** A polluted `PYTHONPATH` was a major source of installation failures.
+>  **Important:** A polluted `PYTHONPATH` was a major source of installation failures.
 
 ---
 
-### 2. Avoid Source Compilation (CentOS 7 Limitation)
+### 2. Installation steps
 
-Running:
-
-```bash
-pip install haddock3
-```
-
-may trigger **source compilation** of packages like:
-
-- pandas  
-- numpy  
-- scipy  
-
-This often fails on CentOS 7 due to:
-
-- outdated compilers  
-- missing headers (e.g., `stdatomic.h`)  
-- incompatible system toolchains  
-
-#### ✅ Solution
-
-Avoid compilation entirely by installing scientific dependencies via **conda** (precompiled binaries).
-
----
-
-## 🚀 Installation Steps (Recommended)
-
-### Step 1 — Create a clean conda environment
+## Step 2.1 — Create a clean conda environment
 
 Use Python ≥ 3.10 (recommended: 3.11)
 
@@ -90,7 +64,7 @@ conda create -n haddock3 python=3.11 pandas numpy scipy -c conda-forge
 
 ---
 
-### Step 2 — Activate the environment
+## Step 2.2 — Activate the environment
 
 ```bash
 conda activate haddock3
@@ -98,7 +72,8 @@ conda activate haddock3
 
 ---
 
-### Step 3 — Ensure clean environment
+## Step 2.3 — Ensure clean environment
+
 
 ```bash
 unset PYTHONPATH
@@ -106,21 +81,15 @@ unset PYTHONPATH
 
 ---
 
-### Step 4 — Install HADDOCK3
+## Step 2.4 — Install HADDOCK3
 
 ```bash
 pip install haddock3
 ```
 
-✔️ This works because:
-
-- dependencies are already installed via conda  
-- pip does **not** need to compile anything  
-- installation is fast and stable  
-
 ---
 
-### Step 5 — Verify installation
+### Step 3 — Verify installation
 
 ```bash
 haddock3 -h
@@ -133,32 +102,18 @@ python -c "import haddock"
 ```
 
 ---
+---
+---
 
-## 🔁 Reproducing the Environment
+
+### If the current version of HADDOCK3 is incompatible with the ligand search, follow the instructions below
+## Intall HADDOCK3 enviroment 2026.03.0
 
 To ensure reproducibility, we provide:
 
-```
-haddock3_environment_for_sharing.yml
-```
-
-This file was generated using:
-
-```bash
-conda env export --no-builds > haddock3_environment_for_sharing.yml
-```
-
 ---
 
-### Why `--no-builds`?
-
-- ✅ Removes system-specific build strings  
-- ✅ Improves portability across clusters  
-- ✅ Keeps package versions consistent  
-
----
-
-### 📦 Recreate the environment
+## Recreate the environment
 
 ```bash
 conda env create -f haddock3_environment_for_sharing.yml
@@ -167,7 +122,7 @@ conda activate haddock3
 
 ---
 
-## 🧠 Best Practices
+## Best Practices
 
 - Always use a **clean conda environment**
 - Do **not** mix system Python with conda environments
@@ -177,18 +132,7 @@ conda activate haddock3
 
 ---
 
-## ✔️ Summary
-
-A successful HADDOCK3 installation on CentOS 7 requires:
-
-- Python ≥ 3.10 (recommended: 3.11)  
-- Clean environment (`PYTHONPATH` unset)  
-- Conda-installed scientific stack (no compilation)  
-- pip installation of HADDOCK3  
-
----
-
-## 💬 Notes
+## Notes
 
 This guide reflects a **tested and working configuration** on HPC systems where:
 
