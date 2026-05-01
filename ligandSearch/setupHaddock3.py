@@ -10,7 +10,8 @@ protlidPath = os.getenv('PROTLIDv2HOME')
 outputDir = f'{homeDir}/ligandSearch'
 
 receptor = sys.argv[1]
-### Job name cannot exceed 8 characters becasue jobId from job name needs to be extracted to make later dependency 
+### Job name cannot exceed 8 characters becasue jobId from job name needs to be extracted to make later dependency
+print('Checking and creating paths...')
 if len(receptor) != 6:
 	sys.exit(f'EXIT: receptor name must be 6 chareacters long. Example: 1AK4.A')
 pdb = receptor.split('.')[0]
@@ -46,6 +47,7 @@ fh.close()
 newPdbFile.close()
 
 ### Get interface between native receptor and ligand
+print('Running INTERCAAT...')
 intercaat = subprocess.check_output(['python3', f'{protlidPath}/protlid_auxPrograms/intercaat/intercaat.py', '-pdb', f'{pdb}.pdb', '-qc', qc,\
 '-ic', ic, '-fp', f'{protlidPath}/pdbs/'], shell =False, text= True)
 intercaat = intercaat.split('\n')
@@ -96,10 +98,10 @@ submitFile.close()
 
 jobFile = open(f'{outputDir}/haddock3_jobs/jobs_{receptor}_1','w')
 for ligand in ligands:
-
+	print(f'Creating SLURM job for ligand {ligand}...')
 	jobFile.write(f'haddock3 {outputDir}/{receptor}/docking_{receptor}_{ligand}.tbl\n')
 	shutil.copy(f'{protlidPath}/ligands/{ligand}.pdb', f'{outputDir}/{receptor}/data')
-	### run naccess on ligand PDB to get ligand surface accessiblity 
+	### run naccess on ligand PDB to get ligand surface accessiblity
 	os.system(f'bash {protlidPath}/ligandSearch/get_SA.PDB.sh {protlidPath}/ligands/{ligand}.pdb {protlidPath}/SA_PDBs {homeDirName}')
 
 	### create list of all surface assessible ligand residues

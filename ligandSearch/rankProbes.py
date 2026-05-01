@@ -12,11 +12,12 @@ from Bio.PDB import PDBParser, Superimposer, PDBIO
 receptor = sys.argv[1]
 homeDir = os.getcwd()
 protlidPath = os.getenv('PROTLIDv2HOME')
-outputDir = f'{homeDir}/results'
+outputDir = f'{homeDir}/ligandSearch/results'
 mpDistCutoff = 4.5
-rankOut = 'rankings'
 os.makedirs(outputDir, exist_ok=True)
-os.makedirs(f'{outputDir}/{rankOut}', exist_ok=True)
+os.makedirs(f'{outputDir}/poseRankings', exist_ok=True)
+os.makedirs(f'{outputDir}/ligandRanking', exist_ok=True)
+os.makedirs(f'{outputDir}/topModels', exist_ok=True)
 
 aminoAcids = ['ALA', 'ARG', 'ASN', 'ASP', 'CYS', 'GLN', 'GLU', 'HIS', 'ILE', 'LEU', 'LYS', 'MET', 'PHE', 'PRO', 'SER', 'THR', 'TRP', 'TYR', 'VAL']
 
@@ -236,7 +237,8 @@ for lig in ligands:
 	poseScores = sorted(poseScores, key = operator.itemgetter(4), reverse=True)
 
 	### Save ProtLID scores for each complex
-	poseFile = open(f'{outputDir}/{lig}_{ref}_scoredPoses','w')
+	poseFile = open(f'{outputDir}/poseRankings/{lig}_{ref}_scoredPoses','w')
+	poseFile.write(f'Receptor\tLigand\tComplex\tDockq\tProtLIDScore\n')
 	protLIDScoreDict1 = {}
 	protLIDScoreDict2 = {}
 	c = 1
@@ -267,7 +269,6 @@ for lig in ligands:
 		holdCombinedData[i].append(hold)
 		i += 1
 
-os.makedirs(f'{outputDir}/topModels', exist_ok=True)
 i = 0
 ### Normalize HADDOCK and ProtLID scores by highest score in each respective set
 maxHadd = min([x[6] for x in holdCombinedData[i]])
@@ -287,10 +288,12 @@ holdCombinedData_2 = sorted(holdCombinedData_2, key = operator.itemgetter(8), re
 
 ### Saves the ranking of the receptors cognate ligands among the set of decoy ligands
 top = 10**i
-combinedFile = open(f'{outputDir}/{rankOut}/{receptor}_combined_rankings_{ref}_Top{top}.txt','w')
-combinedFile.write('Top\tRefinement\tLigand\tComplex\tDockq\tHaddockScore\tProtLIDScore\tCombinedComplexRank\tCombinedScore\n')
+combinedFile = open(f'{outputDir}/ligandRanking/{receptor}_combined_rankings_{ref}_Top{top}.txt','w')
+# combinedFile.write('Top\tRefinement\tLigand\tComplex\tDockq\tHaddockScore\tProtLIDScore\tCombinedComplexRank\tCombinedScore\n')
+combinedFile.write('Receptor\tLigand\tComplex\tDockq\tHaddockScore\tProtLIDScore\tCombinedComplexRank\tCombinedScore\n')
 for aa,bb,cc,dd,ee,ff,gg,hh,ii in holdCombinedData_2:
-	combinedFile.write(f'{aa}\t{bb}\t{cc}\t{dd}\t{ee}\t{ff}\t{gg}\t{hh}\t{ii}\n')
+	# combinedFile.write(f'{aa}\t{bb}\t{cc}\t{dd}\t{ee}\t{ff}\t{gg}\t{hh}\t{ii}\n')
+	combinedFile.write(f'{receptor}\t{cc}\t{dd}\t{ee}\t{ff}\t{gg}\t{hh}\t{ii}\n')
 	shutil.copy(f'{homeDir}/ligandSearch/{receptor}/{receptor}_{cc}_results/{dd1}/{dd}.gz', f'{outputDir}/topModels/{cc}_topModel.pdb.gz')
 combinedFile.close()
 

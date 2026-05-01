@@ -73,6 +73,7 @@ fh.close()
 ### append all converged amino acids to the list 'results'
 results = []
 for aa in aminoAcids:
+	print(f'Checking {aa} Convergence...')
 	tightness = [[] for x in aaAtomDict[aa]]
 	closestDist_array = [[] for x in aaAtomDict[aa]]
 	center_array = [[] for x in aaAtomDict[aa]]
@@ -161,6 +162,7 @@ for f in fh:
 fh.close()
 
 ### All Meshpoints within the proximity of a converged probe are assigned a fraction of the preference. For example if 3 meshpoints are within proximity, the are all assigned 1/3 of the total preference
+print('Assigning Preferences...')
 probe_fractional_value = []
 for aa,mp,HB_HYD,x,y,z in results:
 	if HB_HYD == 'HB':
@@ -221,3 +223,4 @@ while c < len(hold_mp):
 	c += 1
 newFile.close()
 
+print('Done')

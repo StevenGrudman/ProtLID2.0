@@ -169,6 +169,14 @@ sbatch submit.genInitPDB_wtLeap.sh
 
 ---
 
+## 5.5. Check if `tleap` input files were successfully created and says whether it is safe to continue.
+
+```bash
+python3 $PROTLIDv2HOME/code_interfaceDesign/check_tleap.py
+```
+
+---
+
 ## 6. Generate and Submit MD Jobs
 
 Once the `tleap` files have been generated:
@@ -201,13 +209,16 @@ python3 $PROTLIDv2HOME/get_rs-pharmacophore.py
 
 ## HADDOCK3 Setup
 
+
+## 🔗 Related Documentatioon
+```markdown
+See the HADDOCK3 installation guide:
+[HADDOCK3 Installation](HADDOCK3_README_FULL.md)
+```
+
 > **Important:**  
 > You **must** create a Conda environment named `haddock3` for HADDOCK3.
 
-Download HADDOCK3 here:  
-https://github.com/haddocking/haddock3/releases/tag/2024.12.0b7
-
-Please follow their installation instructions.
 
 > **Important:**  
 > The `[receptor]` and `[cognate ligand]` names must each be **equal to or fewer than 6 characters**.
@@ -233,6 +244,15 @@ Results will be written to:
 ```bash
 [working directory]/ligandSearch/results
 ```
+
+Inside this directory you will find the 3 directories:
+- **poseRankings** - Scored poses for each ligand
+  - Poses are ranked by their ProtLIDScores
+- **ligandRanking** - Ranking of the top pose from each ligand 
+  - Haddock and ProtLID scores are normalized to their respective maximum values and averaged to generate a combined score
+  - Ligands are ranked by combined score
+  - The CombinedComplexRank represents the average of the individual ligand ranks from Haddock and ProtLID 
+- **topModels** - Compressed PDB files of the top ranked pose for each ligand
 
 ---
 
