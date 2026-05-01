@@ -1,4 +1,4 @@
-# HADDOCK3 Installation Guide (CentOS 7)
+# HADDOCK3 Installation Guide
 
 ## Overview
 
