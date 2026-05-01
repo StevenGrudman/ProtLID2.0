@@ -211,10 +211,10 @@ python3 $PROTLIDv2HOME/get_rs-pharmacophore.py
 
 
 ## 🔗 Related Documentatioon
-```markdown
+
+
 See the HADDOCK3 installation guide:
 [HADDOCK3 Installation](HADDOCK3_README_FULL.md)
-```
 
 > **Important:**  
 > You **must** create a Conda environment named `haddock3` for HADDOCK3.
