@@ -108,7 +108,7 @@ python -c "import haddock"
 
 
 ## If the current version of HADDOCK3 is incompatible with the ligand search, follow the instructions below
-### Intall HADDOCK3 enviroment 2026.03.0
+### Install HADDOCK3 enviroment 2026.03.0
 
 To ensure reproducibility, we provide:
 
