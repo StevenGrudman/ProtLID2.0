@@ -11,9 +11,10 @@ Two critical issues must be addressed:
 
 This procedure has been tested and works on:
 
-- CentOS 7  
+- CentOS 7
+- Ubuntu 22.04.5 LTS
 - AlmaLinux 9.6  
-- Rocky Linux 9.7  
+- Rocky Linux 9.7
 
 ---
 
