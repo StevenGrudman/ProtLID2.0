@@ -132,13 +132,3 @@ conda activate haddock3
 
 ---
 
-### Notes
-
-This guide reflects a **tested and working configuration** on HPC systems where:
-
-- system compilers are outdated  
-- mixed software environments are common  
-- reproducibility is important  
-
----
-
