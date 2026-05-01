@@ -52,9 +52,9 @@ unset PYTHONPATH
 
 ---
 
-### 2. Installation steps
+## 2. Installation steps
 
-## Step 2.1 — Create a clean conda environment
+### Step 2.1 — Create a clean conda environment
 
 Use Python ≥ 3.10 (recommended: 3.11)
 
@@ -64,7 +64,7 @@ conda create -n haddock3 python=3.11 pandas numpy scipy -c conda-forge
 
 ---
 
-## Step 2.2 — Activate the environment
+### Step 2.2 — Activate the environment
 
 ```bash
 conda activate haddock3
@@ -72,7 +72,7 @@ conda activate haddock3
 
 ---
 
-## Step 2.3 — Ensure clean environment
+### Step 2.3 — Ensure clean environment
 
 
 ```bash
@@ -81,7 +81,7 @@ unset PYTHONPATH
 
 ---
 
-## Step 2.4 — Install HADDOCK3
+### Step 2.4 — Install HADDOCK3
 
 ```bash
 pip install haddock3
@@ -89,7 +89,7 @@ pip install haddock3
 
 ---
 
-### Step 3 — Verify installation
+## Step 3 — Verify installation
 
 ```bash
 haddock3 -h
@@ -106,14 +106,14 @@ python -c "import haddock"
 ---
 
 
-### If the current version of HADDOCK3 is incompatible with the ligand search, follow the instructions below
-## Intall HADDOCK3 enviroment 2026.03.0
+## If the current version of HADDOCK3 is incompatible with the ligand search, follow the instructions below
+### Intall HADDOCK3 enviroment 2026.03.0
 
 To ensure reproducibility, we provide:
 
 ---
 
-## Recreate the environment
+### Recreate the environment
 
 ```bash
 conda env create -f haddock3_environment_for_sharing.yml
@@ -122,7 +122,7 @@ conda activate haddock3
 
 ---
 
-## Best Practices
+### Best Practices
 
 - Always use a **clean conda environment**
 - Do **not** mix system Python with conda environments
@@ -132,7 +132,7 @@ conda activate haddock3
 
 ---
 
-## Notes
+### Notes
 
 This guide reflects a **tested and working configuration** on HPC systems where:
 
