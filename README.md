@@ -22,9 +22,10 @@ The following software is required:
 - **Perl** (tested with `v5.16.3`)
 - **MODELLER** (tested with `v9.15`)
 - **AMBER** (tested with `Amber20`)
-- **Python 3** (tested with `v3.9.12`)
+- **Python3** (tested with `v3.9.12`)
 - **HADDOCK3** (tested with `2024.12.0b7`)
 - **NumPy** (tested with `v2.2.6`)
+- **biopython** (tested with `v1.83`)
 
 ---
 
