@@ -3,7 +3,9 @@ import os
 import subprocess
 import shutil
 import time
+import copy
 from Bio.PDB import PDBParser, PDBIO, Select
+parser = PDBParser(QUIET=True)
 
 homeDir = os.getcwd()
 homeDirName = homeDir.split('/')[-1]
@@ -33,6 +35,7 @@ for chain_to_keep in [qc, ic]:
 	io = PDBIO()
 	io.set_structure(new_structure)
 	io.save(f'{protlidPath}/ligands/{pdb}.{chain_to_keep}.pdb')
+	io.save(f'{protlidPath}/receptors/{pdb}.{chain_to_keep}.pdb')
 os.makedirs(f'{homeDir}/ligandSearch',exist_ok=True)
 os.makedirs(outputDir, exist_ok=True)
 os.makedirs(f'{outputDir}/err', exist_ok=True)
