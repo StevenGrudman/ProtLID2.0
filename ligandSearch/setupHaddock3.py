@@ -84,13 +84,17 @@ for f in fh:
 		ligands.append(f.strip())
 fh.close()
 
+
 file = f'{protlidPath}/ligandSearch/cognateLigands_2only/cognates.{receptor}.list'
-fh = open(file)
-for f in fh:
-	f = f.strip()
-	if f.split()[0] not in ligands:
-		ligands.append(f.split()[0])
-fh.close()
+if os.path.exists(file):
+	fh = open(file)
+	for f in fh:
+		f = f.strip()
+		if f.split()[0] not in ligands:
+			ligands.append(f.split()[0])
+	fh.close()
+else:
+	ligands.append(f'{pdb}.{ic}')
 
 
 ### create a SLURM submit script to run HADDOCK on the receptor and all the ligands in the list 'ligands'
