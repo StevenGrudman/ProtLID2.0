@@ -32,9 +32,9 @@ for chain_to_keep in [qc, ic]:
 				chains_to_remove.append(chain.id)
 			else:
 				if chain_to_keep == qc:
-					chain.id = 'L'
-				elif chain_to_keep == ic:
 					chain.id = 'R'
+				elif chain_to_keep == ic:
+					chain.id = 'L'
 		for chain_id in chains_to_remove:
 			model.detach_child(chain_id)
 	io = PDBIO()
