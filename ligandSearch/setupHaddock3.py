@@ -95,6 +95,9 @@ if os.path.exists(file):
 	fh.close()
 else:
 	ligands.append(f'{pdb}.{ic}')
+	newFile = open(f'{protlidPath}/ligandSearch/cognateLigands_2only/cognates.{receptor}.list','w')
+	newFile.write(f'{pdb}.{ic}')
+	newFile.close()
 
 
 ### create a SLURM submit script to run HADDOCK on the receptor and all the ligands in the list 'ligands'
