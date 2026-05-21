@@ -219,10 +219,8 @@ See the HADDOCK3 installation guide:
 
 > **Important:**  
 > Your Conda environment **must** be named `haddock3` for the ligand search to work.
-
-
-> **Important:**  
 > The `[receptor]` and `[cognate ligand]` names must each be **equal to or fewer than 6 characters**.
+> Your `[receptor]` chain ID will be replaced with R and your `[ligand]` chain ID will be replaced with L
 
 ### Run HADDOCK3 Setup
 

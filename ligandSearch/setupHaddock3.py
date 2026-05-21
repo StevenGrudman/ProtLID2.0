@@ -26,12 +26,17 @@ shutil.copy(f'{homeDir}/{pdb}.pdb', f'{protlidPath}/pdbs')
 for chain_to_keep in [qc, ic]:
 	new_structure = copy.deepcopy(parser.get_structure('protein', f'{homeDir}/{pdb}.pdb'))
 	for model in new_structure:
-	    chains_to_remove = []
-	    for chain in model:
-	        if chain.id != chain_to_keep:
-	            chains_to_remove.append(chain.id)
-	    for chain_id in chains_to_remove:
-	        model.detach_child(chain_id)
+		chains_to_remove = []
+		for chain in model:
+			if chain.id != chain_to_keep:
+				chains_to_remove.append(chain.id)
+			else:
+				if chain_to_keep == qc:
+					chain.id = 'L'
+				elif chain_to_keep == ic:
+					chain.id = 'R'
+		for chain_id in chains_to_remove:
+			model.detach_child(chain_id)
 	io = PDBIO()
 	io.set_structure(new_structure)
 	io.save(f'{protlidPath}/ligands/{pdb}.{chain_to_keep}.pdb')
