@@ -17,6 +17,8 @@ receptor = sys.argv[1]
 print('Checking and creating paths...')
 if len(receptor) != 6:
 	sys.exit(f'EXIT: receptor name must be 6 chareacters long. Example: 1AK4.A')
+if os.path.exists(f'{homeDir}/pharmacophore.tsv') == False
+	sys.exit(f'EXIT: Must first generate pharmacophore (step 8) before continuing to ligand search.')
 pdb = receptor.split('.')[0]
 nativeligand = sys.argv[2]
 qc = receptor.split('.')[1]
